@@ -15,5 +15,8 @@
 # vendor/
 
 .idea/
+<<<<<<< HEAD
 .env
 bin/
+=======
+>>>>>>> 621d5cf261d39e755327565d6eb690d9d6d6e2ee
