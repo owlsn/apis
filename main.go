@@ -1,15 +1,10 @@
 package main
 
-<<<<<<< HEAD
 import (
 	"github.com/kataras/iris/v12"
 
 	"github.com/kataras/iris/v12/middleware/logger"
 	"github.com/kataras/iris/v12/middleware/recover"
-=======
-import(
-	
->>>>>>> master
 )
 
 func main() {
