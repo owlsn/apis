@@ -30,27 +30,31 @@ variables:
 	@echo " BUILD:$(BUILD) "
 	@echo " PROJECTNAME:$(PROJECTNAME) "
 	@echo " BASE:$(BASE)"
-	@echo " @-$(GOBIN)/$(PROJECTNAME) 2>&1 & echo $$! > $(PID) "
+	@echo " PID:$(PID) "
 
 ## install: Install missing dependencies. Runs `go get` internally. e.g; make install get=github.com/foo/bar
 install: go-get
 
 ## start: Start in development mode. Auto-starts when code changes.
 start:
-	@bash -c "trap 'make stop' EXIT; $(MAKE) clean compile start-server run='make clean compile start-server'"
+	@bash -c "$(MAKE) clean compile start-server run='make clean compile start-server'"
+  # @bash -c "trap 'make stop' EXIT; $(MAKE) clean compile start-server run='make clean compile start-server'"
 
 ## stop: Stop development mode.
 stop: stop-server
 
-start-server: stop-server
-	@echo "  >  $(PROJECTNAME) is available at $(ADDR)"
+start-server:
+ifneq ($(PID), $(wildcard $(PID)))
 	@$(GOBIN)/$(PROJECTNAME) 2>&1 & echo $$! > $(PID)
 	@cat $(PID) | sed "/^/s/^/  \>  PID: /"
+endif
+	@echo "  >  $(PROJECTNAME) is available at `cat $(PID)`"
 
 stop-server:
-	@touch $(PID)
+ifeq ($(PID), $(wildcard $(PID)))
 	@kill `cat $(PID)` 2> /dev/null || true
-	@rm $(PID)
+	@-rm $(PID)
+endif
 
 ## watch: Run given command when code changes. e.g; make watch run="echo 'hey'"
 # watch:
