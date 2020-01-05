@@ -22,18 +22,46 @@ func main() {
 		ctx.HTML("<h1>Welcome</h1>")
 	})
 
+	// app.Handle("GET", "/index", func(ctx iris.Context){
+	// 	ctx.HTML("<h1>index</h1>")
+	// })
+
+	app.Handle("POST", "/index", func(ctx iris.Context) {
+		// {"title":"hello", "content":"helloworld"}
+		ctx.JSON(iris.Map{
+			"title":   "index",
+			"content": "helloworld",
+		})
+	})
+
+	app.Handle("POST", "/", func(ctx iris.Context) {
+		// {"title":"hello", "content":"helloworld"}
+		ctx.JSON(iris.Map{
+			"title":   "/",
+			"content": "helloworld",
+		})
+	})
+
+	app.Handle("POST", "/app/index", func(ctx iris.Context) {
+		// {"title":"hello", "content":"helloworld"}
+		ctx.JSON(iris.Map{
+			"title":   "/app/index",
+			"content": "helloworld",
+		})
+	})
+
 	// same as app.Handle("GET", "/ping", [...])
 	// Method:   GET
 	// Resource: http://localhost:8080/ping
-	app.Get("/ping", func(ctx iris.Context) {
-		ctx.WriteString("pong")
-	})
+	// app.Get("/ping", func(ctx iris.Context) {
+	// 	ctx.WriteString("pong")
+	// })
 
-	// Method:   GET
-	// Resource: http://localhost:8080/hello
-	app.Get("/hello", func(ctx iris.Context) {
-		ctx.JSON(iris.Map{"message": "Hello Iris!"})
-	})
+	// // Method:   GET
+	// // Resource: http://localhost:8080/hello
+	// app.Get("/hello", func(ctx iris.Context) {
+	// 	ctx.JSON(iris.Map{"message": "Hello Iris!"})
+	// })
 
 	// http://localhost:8080
 	// http://localhost:8080/ping
