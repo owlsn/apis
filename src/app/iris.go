@@ -14,7 +14,7 @@ import (
 	"github.com/sirupsen/logrus"
 
 	"github.com/owlsn/apis/src/api"
-	// "github.com/owlsn/apis/src/utils/json"
+	"github.com/owlsn/apis/src/utils/json"
 	"github.com/owlsn/apis/src/common/config"
 	// "github.com/owlsn/apis/src/middleware"
 )
@@ -33,13 +33,13 @@ func InitIris() {
 	}))
 	app.AllowMethods(iris.MethodOptions)
 
-	// app.OnAnyErrorCode(func(ctx iris.Context) {
-	// 	var err error
-	// 	_, err = ctx.JSON(json.JsonErrorCode(ctx.GetStatusCode(), "Http error"))
-	// 	if err != nil {
-	// 		logrus.Error(err)
-	// 	}
-	// })
+	app.OnAnyErrorCode(func(ctx iris.Context) {
+		var err error
+		_, err = ctx.JSON(json.JsonErrorCode(ctx.GetStatusCode(), "Http error"))
+		if err != nil {
+			logrus.Error(err)
+		}
+	})
 
 	// api
 	mvc.Configure(app.Party("/api"), api.MVC)
