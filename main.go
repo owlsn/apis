@@ -42,10 +42,10 @@ func main() {
 		})
 	})
 
-	app.Handle("POST", "/app/index", func(ctx iris.Context) {
+	app.Handle("POST", "/api/index", func(ctx iris.Context) {
 		// {"title":"hello", "content":"helloworld"}
 		ctx.JSON(iris.Map{
-			"title":   "/app/index",
+			"title":   "/api/index",
 			"content": "helloworld",
 		})
 	})
