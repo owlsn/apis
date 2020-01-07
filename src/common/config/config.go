@@ -14,12 +14,11 @@ type Config struct {
 	BaseUrl    string `yaml:"BaseUrl"`    // base url
 	Port       string `yaml:"Port"`       // 端口
 	LogFile    string `yaml:"LogFile"`    // 日志文件
-	ShowSql    bool   `yaml:"ShowSql"`    // 是否显示日志
-	StaticPath string `yaml:"StaticPath"` // 静态文件目录
 
 	MySqlUrl string `yaml:"MySqlUrl"` // 数据库连接地址
 	MaxIdleConns int `yaml:"MaxIdleConns"`
 	MaxOpenConns int `yaml:"MaxOpenConns"`
+	ShowSql    bool   `yaml:"ShowSql"`    // 是否显示日志
 }
 
 func InitConfig(filename string) {
