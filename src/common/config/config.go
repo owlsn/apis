@@ -18,7 +18,8 @@ type Config struct {
 	StaticPath string `yaml:"StaticPath"` // 静态文件目录
 
 	MySqlUrl string `yaml:"MySqlUrl"` // 数据库连接地址
-	
+	MaxIdleConns int `yaml:"MaxIdleConns"`
+	MaxOpenConns int `yaml:"MaxOpenConns"`
 }
 
 func InitConfig(filename string) {

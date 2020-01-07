@@ -13,12 +13,12 @@ import (
 	"github.com/kataras/iris/v12/mvc"
 	"github.com/sirupsen/logrus"
 
-	"github.com/owlsn/apis/src/api"
 	"github.com/owlsn/apis/src/utils/json"
 	"github.com/owlsn/apis/src/common/config"
 	// "github.com/owlsn/apis/src/middleware"
 )
 
+// InitIris : init iris
 func InitIris() {
 	app := iris.New()
 	app.Logger().SetLevel("warn")
@@ -42,7 +42,7 @@ func InitIris() {
 	})
 
 	// api
-	mvc.Configure(app.Party("/api"), api.MVC)
+	mvc.Configure(app.Party("/api"), MVC)
 
 	server := &http.Server{Addr: ":" + config.Conf.Port}
 	handleSignal(server)

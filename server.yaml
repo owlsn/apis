@@ -2,8 +2,10 @@ Env: prod # 环境，线上环境：prod、测试环境：dev
 BaseUrl: https://www.owlslink.xyz # 网站域名
 Port: 8080 # 端口
 LogFile: /data/logs/owlslink.log # 日志文件
-ShowSql: false # 是否打印sql
 StaticPath: /data/www  # 根路径下的静态文件目录，可配置绝对路径
 
 # 数据库连接
-MySqlUrl: username:password@tcp(localhost:3306)/bbsgo_db?charset=utf8mb4&parseTime=True&loc=Local
+MySqlUrl: root:123456@tcp(localhost:3306)/owlslink?charset=utf8&parseTime=True&loc=Local
+MaxIdleConns: 10
+MaxOpenConns: 20
+ShowSql: false # 是否打印sql

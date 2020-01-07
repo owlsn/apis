@@ -6,6 +6,8 @@ import (
 	"github.com/owlsn/apis/src/common/config"
 	"github.com/sirupsen/logrus"
 	"github.com/owlsn/apis/src/app"
+	"github.com/owlsn/apis/src/utils/database"
+	"reflect"
 )
 
 var configFile = flag.String("config", "./server.yaml", "config file path")
@@ -20,6 +22,13 @@ func init() {
 		logrus.SetOutput(file)
 	} else {
 		logrus.Error(err)
+	}
+
+	db := database.Instance() // 连接数据库
+	if reflect.TypeOf(db).String() != "*gorm.DB"{
+		logrus.Error("get gorm.DB fail")
+	}else{
+		defer db.Close()
 	}
 }
 
