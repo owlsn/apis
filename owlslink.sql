@@ -1,13 +1,13 @@
--- MySQL dump 10.14  Distrib 5.5.64-MariaDB, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.18, for osx10.15 (x86_64)
 --
 -- Host: localhost    Database: owlslink
 -- ------------------------------------------------------
--- Server version	5.5.64-MariaDB
+-- Server version	8.0.18
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,17 +21,17 @@
 
 DROP TABLE IF EXISTS `comment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `user_id` int(10) unsigned DEFAULT NULL COMMENT '评论用户',
   `post_id` int(10) unsigned DEFAULT NULL COMMENT 'postid',
   `create_time` int(10) unsigned DEFAULT NULL COMMENT '发表时间',
   `status` tinyint(4) DEFAULT '1' COMMENT '删除状态(1->正常,-1->删除)',
-  `content` varchar(255) DEFAULT NULL COMMENT '评论内容',
+  `content` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '评论内容',
   `re_id` int(10) unsigned DEFAULT NULL COMMENT '回复人id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='评论表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='评论表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,32 +45,32 @@ INSERT INTO `comment` VALUES (1,1,1,1578396727,1,'测试回复',NULL);
 UNLOCK TABLES;
 
 --
--- Table structure for table `posts`
+-- Table structure for table `post`
 --
 
-DROP TABLE IF EXISTS `posts`;
+DROP TABLE IF EXISTS `post`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `posts` (
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `post` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `title` varchar(50) DEFAULT NULL COMMENT '标题',
-  `content` varchar(255) DEFAULT NULL COMMENT '内容',
+  `title` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '标题',
+  `content` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '内容',
   `create_time` int(10) unsigned DEFAULT NULL COMMENT '创建时间',
   `status` tinyint(3) unsigned DEFAULT '1' COMMENT '状态(1-正常,-1->删除)',
-  `tag_ids` varchar(255) DEFAULT NULL COMMENT '标签列表,分号分隔',
+  `tag_ids` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '标签列表,分号分隔',
   `user_id` int(10) unsigned DEFAULT NULL COMMENT '发表人id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='发布内容表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='发布内容表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `posts`
+-- Dumping data for table `post`
 --
 
-LOCK TABLES `posts` WRITE;
-/*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,'测试动态','测试动态',1578396727,1,'1',1);
-/*!40000 ALTER TABLE `posts` ENABLE KEYS */;
+LOCK TABLES `post` WRITE;
+/*!40000 ALTER TABLE `post` DISABLE KEYS */;
+INSERT INTO `post` VALUES (1,'测试动态','测试动态',1578396727,1,'1',1);
+/*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -79,16 +79,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tag`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tag` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `status` tinyint(4) DEFAULT '1' COMMENT '删除状态(1->正常，-1->删除)',
-  `title` varchar(30) DEFAULT NULL COMMENT 'tag名',
+  `title` varchar(30) CHARACTER SET utf8 DEFAULT NULL COMMENT 'tag名',
   `create_time` int(10) unsigned DEFAULT NULL COMMENT '创建时间',
   `update_time` int(10) unsigned DEFAULT NULL COMMENT '更新时间',
   `parent` int(10) unsigned DEFAULT NULL COMMENT '父tagid',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='分类';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='分类';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,17 +107,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `username` varchar(50) DEFAULT NULL COMMENT '用户名',
-  `email` varchar(50) DEFAULT NULL COMMENT '邮箱',
+  `username` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '用户名',
+  `email` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '邮箱',
   `status` tinyint(4) DEFAULT '1' COMMENT '删除状态(1->正常,-1->删除)',
-  `mobile_phone` char(15) DEFAULT NULL COMMENT '手机',
+  `mobile_phone` char(15) CHARACTER SET utf8 DEFAULT NULL COMMENT '手机',
   `create_time` int(11) unsigned DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) unsigned DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,4 +139,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-01-07 19:35:15
+-- Dump completed on 2020-01-07 22:49:09

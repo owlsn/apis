@@ -43,6 +43,10 @@ func InitIris() {
 
 	// api
 	mvc.Configure(app.Party("/api"), MVC)
+	// user
+	mvc.Configure(app.Party("/user"), User)
+	// users
+	mvc.Configure(app.Party("/users"), Users)
 
 	server := &http.Server{Addr: ":" + config.Conf.Port}
 	handleSignal(server)
