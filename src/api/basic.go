@@ -3,39 +3,10 @@ package api
 import (
 	"fmt"
 
-	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/sessions"
 
 	"github.com/kataras/iris/v12/mvc"
 )
-
-func MVC(app *mvc.Application) {
-	// You can use normal middlewares at MVC apps of course.
-	app.Router.Use(func(ctx iris.Context) {
-		ctx.Application().Logger().Infof("Path: %s", ctx.Path())
-		ctx.Next()
-	})
-
-	// Register dependencies which will be binding to the controller(s),
-	// can be either a function which accepts an iris.Context and returns a single value (dynamic binding)
-	// or a static struct value (service).
-	app.Register(
-		sessions.New(sessions.Config{}).Start,
-		&prefixedLogger{prefix: "DEV"},
-	)
-
-	// GET: http://localhost:8080/basic
-	// GET: http://localhost:8080/basic/custom
-	// GET: http://localhost:8080/basic/custom2
-	app.Handle(new(basicController))
-
-	// All dependencies of the parent *mvc.Application
-	// are cloned to this new child,
-	// thefore it has access to the same session as well.
-	// GET: http://localhost:8080/basic/sub
-	app.Party("/sub").
-		Handle(new(basicSubController))
-}
 
 // If controller's fields (or even its functions) expecting an interface
 // but a struct value is binded then it will check
@@ -45,51 +16,52 @@ func MVC(app *mvc.Application) {
 // remember? Iris always uses the best possible way to reduce load
 // on serving web resources.
 
+// LoggerService : Logger Service
 type LoggerService interface {
 	Log(string)
 }
-
-type prefixedLogger struct {
-	prefix string
+// PrefixedLogger : Prefixed Logger
+type PrefixedLogger struct {
+	Prefix string
 }
-
-func (s *prefixedLogger) Log(msg string) {
-	fmt.Printf("%s: %s\n", s.prefix, msg)
+// Log : Log
+func (s *PrefixedLogger) Log(msg string) {
+	fmt.Printf("%s: %s\n", s.Prefix, msg)
 }
-
-type basicController struct {
+// BasicController : Basic Controller
+type BasicController struct {
 	Logger LoggerService
 
 	Session *sessions.Session
 }
-
-func (c *basicController) BeforeActivation(b mvc.BeforeActivation) {
+// BeforeActivation : Before Activation
+func (c *BasicController) BeforeActivation(b mvc.BeforeActivation) {
 	b.HandleMany("GET", "/custom /custom2", "Custom")
 }
-
-func (c *basicController) AfterActivation(a mvc.AfterActivation) {
+// AfterActivation : After Activation
+func (c *BasicController) AfterActivation(a mvc.AfterActivation) {
 	if a.Singleton() {
 		panic("basicController should be stateless, a request-scoped, we have a 'Session' which depends on the context.")
 	}
 }
-
-func (c *basicController) Get() string {
+// Get : Get
+func (c *BasicController) Get() string {
 	count := c.Session.Increment("count", 1)
 
 	body := fmt.Sprintf("Hello from basicController\nTotal visits from you: %d", count)
 	c.Logger.Log(body)
 	return body
 }
-
-func (c *basicController) Custom() string {
+// Custom : Custom
+func (c *BasicController) Custom() string {
 	return "custom"
 }
-
-type basicSubController struct {
+// BasicSubController : Basic Sub Controller
+type BasicSubController struct {
 	Session *sessions.Session
 }
-
-func (c *basicSubController) Get() string {
+// Get : Get
+func (c *BasicSubController) Get() string {
 	count := c.Session.GetIntDefault("count", 1)
 	return fmt.Sprintf("Hello from basicSubController.\nRead-only visits count: %d", count)
 }

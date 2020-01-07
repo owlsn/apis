@@ -19,3 +19,5 @@
 .env
 bin/
 .tags
+*.sql
+*.yaml
