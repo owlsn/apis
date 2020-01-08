@@ -2,8 +2,8 @@ package datasource
 
 import (
 	"errors"
-	"github.com/owlsn/apis/src/utils/database"
 	"github.com/jinzhu/gorm"
+	"github.com/owlsn/apis/src/utils/database"
 )
 
 // Engine is from where to fetch the data, in this case the users.
@@ -24,12 +24,12 @@ const (
 )
 
 // Load : Load mysql database
-func Load(engine Engine) ( *gorm.DB, error) {
-	if(engine != MySQL){
+func Load(engine Engine) (*gorm.DB, error) {
+	if engine != MySQL {
 		return nil, errors.New("must use mysql as data source")
 	}
 	db, err := database.Instance()
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 	return db, nil

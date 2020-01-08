@@ -9,11 +9,10 @@ import (
 	"github.com/owlsn/apis/src/repositories"
 	"github.com/owlsn/apis/src/services"
 	// "github.com/owlsn/apis/src/middleware"
-	
 )
 
 // Posts : Posts
-func Posts(posts *mvc.Application){
+func Posts(posts *mvc.Application) {
 	logrus.Info("register posts")
 	db, err := datasource.Load(datasource.MySQL)
 	if err != nil {

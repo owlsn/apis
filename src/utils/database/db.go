@@ -1,11 +1,11 @@
 package database
 
 import (
-    "github.com/jinzhu/gorm"
-    _ "github.com/jinzhu/gorm/dialects/mysql"
-		log "github.com/sirupsen/logrus"
-		"github.com/owlsn/apis/src/common/config"
-    "sync"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/owlsn/apis/src/common/config"
+	log "github.com/sirupsen/logrus"
+	"sync"
 )
 
 var db *gorm.DB
@@ -15,8 +15,8 @@ var err error
 var once sync.Once
 
 // Instance : Instance
-func Instance() (*gorm.DB, error){
-	once.Do(func(){
+func Instance() (*gorm.DB, error) {
+	once.Do(func() {
 		// gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
 		// 	return "t_" + defaultTableName
 		// }
@@ -30,7 +30,7 @@ func Instance() (*gorm.DB, error){
 		if db, err = gorm.Open(dialect, url); err != nil {
 			log.Errorf("opens database failed: %s", err.Error())
 			return
-		} 
+		}
 		db.LogMode(enableLog)
 		db.SingularTable(true) // 禁用表名负数
 		db.DB().SetMaxIdleConns(maxIdleConns)

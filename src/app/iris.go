@@ -13,9 +13,9 @@ import (
 	"github.com/kataras/iris/v12/mvc"
 	"github.com/sirupsen/logrus"
 
-	"github.com/owlsn/apis/src/utils/json"
-	"github.com/owlsn/apis/src/common/config"
 	"github.com/owlsn/apis/src/app/register"
+	"github.com/owlsn/apis/src/common/config"
+	"github.com/owlsn/apis/src/utils/json"
 	// "github.com/owlsn/apis/src/middleware"
 )
 

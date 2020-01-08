@@ -1,14 +1,14 @@
 package repositories
 
 import (
-	"github.com/owlsn/apis/src/datamodels"
 	"github.com/jinzhu/gorm"
+	"github.com/owlsn/apis/src/datamodels"
 )
 
 type QueryPost func(table string) bool
 
-type PostRepository interface{
-	GetAll (m map[string] string) ( *datamodels.Post, error )
+type PostRepository interface {
+	GetAll(m map[string]string) (*datamodels.Post, error)
 }
 
 func NewPostRepository(db *gorm.DB) PostRepository {
@@ -19,8 +19,8 @@ type PostMysqlRepository struct {
 	source *gorm.DB
 }
 
-func (r *PostMysqlRepository) GetAll(m map[string] string) ( *datamodels.Post, error ){
-	for k, v := range(m){
+func (r *PostMysqlRepository) GetAll(m map[string]string) (*datamodels.Post, error) {
+	for k, v := range m {
 		r.source.Where(k, v)
 	}
 

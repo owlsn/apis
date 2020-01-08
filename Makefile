@@ -35,6 +35,9 @@ variables:
 ## install: Install missing dependencies. Runs `go get` internally. e.g; make install get=github.com/foo/bar
 install: go-get
 
+## format all code
+fmt: go-fmt
+
 ## start: Start in development mode. Auto-starts when code changes.
 start:
 	@bash -c "$(MAKE) clean compile start-server run='make clean compile start-server'"
@@ -99,6 +102,9 @@ go-install:
 go-clean:
 	@echo "  >  Cleaning build cache"
 	@GOBASE=$(GOBASE) GOBIN=$(GOBIN) go clean
+
+go-fmt:
+	@go fmt $(BASE)/...
 
 .PHONY: help
 all: help

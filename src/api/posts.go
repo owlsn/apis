@@ -25,18 +25,18 @@ type PostsController struct {
 
 func (c *PostsController) GetAll() string {
 	post, err := c.Service.GetAll()
-	if err != nil{
+	if err != nil {
 		return "get post failed"
-	}else{
+	} else {
 		return post.Title
 	}
 }
 
 func (c *PostsController) GetOne() *json.JsonResult {
 	post, err := c.Service.GetAll()
-	if err != nil{
+	if err != nil {
 		return json.JsonErrorData(-1, "get failed", err)
-	}else{
+	} else {
 		return json.JsonData(post)
 	}
 }

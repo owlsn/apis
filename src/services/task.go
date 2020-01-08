@@ -1,9 +1,9 @@
 package services
 
-func Init(){
+func Init() {
 
 }
 
-func DoJob(){
-	
+func DoJob() {
+
 }
