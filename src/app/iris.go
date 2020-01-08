@@ -78,7 +78,7 @@ func handleSignal(server *http.Server) {
 		s := <-c
 		logrus.Infof("got signal [%s], exiting now", s)
 		if err := server.Close(); nil != err {
-			logrus.Errorf("server close failed: ", err.Error())
+			logrus.Errorf("server close failed: ", err)
 		}
 
 		// simple.CloseDB()
