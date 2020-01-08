@@ -1,9 +1,5 @@
 package datamodels
 
-import (
-	"golang.org/x/crypto/bcrypt"
-)
-
 // User is our User example model.
 // Keep note that the tags for public-use (for our web app)
 // should be kept in other file like "web/viewmodels/user.go"
@@ -19,25 +15,15 @@ type User struct {
 	CreateTime		int64			`json:"create_time" form:"create_time"`
 	UpdateTime		int64 		`json:"update_time" form:"update_time"`
 	Status				bool			`json:"staus" form:"staus"`
-
-	HashedPassword []byte    `json:"-" form:"-"`
 }
 
-// IsValid can do some very very simple "low-level" data validations.
-func (u User) IsValid() bool {
-	return u.ID > 0
-}
-
-// GeneratePassword will generate a hashed password for us based on the
-// user's input.
-func GeneratePassword(userPassword string) ([]byte, error) {
-	return bcrypt.GenerateFromPassword([]byte(userPassword), bcrypt.DefaultCost)
-}
-
-// ValidatePassword will check if passwords are matched.
-func ValidatePassword(userPassword string, hashed []byte) (bool, error) {
-	if err := bcrypt.CompareHashAndPassword(hashed, []byte(userPassword)); err != nil {
-		return false, err
-	}
-	return true, nil
+// Post : Post
+type Post struct {
+	ID             int64     `json:"id" form:"id"`
+	Title	string `json:"title" form:"title"`
+	Content	string `json:"content" form:"content"`
+	CreateTime	int64 `json:"create_time" form:"create_time"`
+	Status	string `json:"status" form:"status"`
+	TagIds	string `json:"tag_ids" form:"tag_ids"`
+	UserID	int64 `json:"user_id" form:"user_id"`
 }

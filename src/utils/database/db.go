@@ -15,11 +15,11 @@ var err error
 var once sync.Once
 
 // Instance : Instance
-func Instance() *gorm.DB{
+func Instance() (*gorm.DB, error){
 	once.Do(func(){
-		gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
-			return "t_" + defaultTableName
-		}
+		// gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
+		// 	return "t_" + defaultTableName
+		// }
 
 		url := config.Conf.MySqlUrl
 		dialect := "mysql"
@@ -36,5 +36,5 @@ func Instance() *gorm.DB{
 		db.DB().SetMaxIdleConns(maxIdleConns)
 		db.DB().SetMaxOpenConns(maxOpenConns)
 	})
-	return db
+	return db, err
 }

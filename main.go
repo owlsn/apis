@@ -24,11 +24,11 @@ func init() {
 		logrus.Error(err)
 	}
 
-	db := database.Instance() // 连接数据库
-	if reflect.TypeOf(db).String() != "*gorm.DB"{
-		logrus.Error("get gorm.DB fail")
+	db, err := database.Instance() // 连接数据库
+	if reflect.TypeOf(db).String() != "*gorm.DB" || err != nil{
+		logrus.Errorf("get gorm.DB fail " , err.Error())
 	}else{
-		defer db.Close()
+		// defer db.Close()
 	}
 }
 
