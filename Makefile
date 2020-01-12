@@ -35,8 +35,11 @@ variables:
 ## install: Install missing dependencies. Runs `go get` internally. e.g; make install get=github.com/foo/bar
 install: go-get
 
+## format all code
+fmt: go-fmt
+
 ## start: Start in development mode. Auto-starts when code changes.
-start:
+start: stop-server
 	@bash -c "$(MAKE) clean compile start-server run='make clean compile start-server'"
   # @bash -c "trap 'make stop' EXIT; $(MAKE) clean compile start-server run='make clean compile start-server'"
 
@@ -59,8 +62,6 @@ endif
 ## watch: Run given command when code changes. e.g; make watch run="echo 'hey'"
 # watch:
 # 	@GOBASE=$(GOBASE) GOBIN=$(GOBIN) yolo -i . -e vendor -e bin -c "$(run)"
-
-restart-server: stop-server start-server
 
 ## compile: Compile the binary.
 compile:
@@ -99,6 +100,9 @@ go-install:
 go-clean:
 	@echo "  >  Cleaning build cache"
 	@GOBASE=$(GOBASE) GOBIN=$(GOBIN) go clean
+
+go-fmt:
+	@go fmt $(BASE)/...
 
 .PHONY: help
 all: help

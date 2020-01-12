@@ -1,4 +1,4 @@
-package app
+package register
 
 import (
 	"github.com/kataras/iris/v12"
@@ -8,8 +8,7 @@ import (
 	"github.com/owlsn/apis/src/api"
 )
 
-// MVC : mvc func
-func MVC(app *mvc.Application) {
+func Basic(app *mvc.Application) {
 	// You can use normal middlewares at MVC apps of course.
 	app.Router.Use(func(ctx iris.Context) {
 		ctx.Application().Logger().Infof("Path: %s", ctx.Path())

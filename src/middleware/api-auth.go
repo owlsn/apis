@@ -33,14 +33,14 @@ func ApiAuth(ctx iris.Context) {
 
 // 从请求体中获取UserToken
 // func getUserToken(ctx iris.Context) string {
-	// userToken := ctx.FormValue("userToken")
-	// if len(userToken) > 0 {
-	// 	return userToken
-	// }
-	// return ctx.GetHeader("X-User-Token")
+// userToken := ctx.FormValue("userToken")
+// if len(userToken) > 0 {
+// 	return userToken
+// }
+// return ctx.GetHeader("X-User-Token")
 // }
 
 // func NotLogin(ctx iris.Context) {
-	// _, _ = ctx.JSON(simple.JsonError(simple.ErrorNotLogin))
-	// ctx.StopExecution()
+// _, _ = ctx.JSON(simple.JsonError(simple.ErrorNotLogin))
+// ctx.StopExecution()
 // }

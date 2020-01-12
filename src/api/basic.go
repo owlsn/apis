@@ -20,30 +20,36 @@ import (
 type LoggerService interface {
 	Log(string)
 }
+
 // PrefixedLogger : Prefixed Logger
 type PrefixedLogger struct {
 	Prefix string
 }
+
 // Log : Log
 func (s *PrefixedLogger) Log(msg string) {
 	fmt.Printf("%s: %s\n", s.Prefix, msg)
 }
+
 // BasicController : Basic Controller
 type BasicController struct {
 	Logger LoggerService
 
 	Session *sessions.Session
 }
+
 // BeforeActivation : Before Activation
 func (c *BasicController) BeforeActivation(b mvc.BeforeActivation) {
 	b.HandleMany("GET", "/custom /custom2", "Custom")
 }
+
 // AfterActivation : After Activation
 func (c *BasicController) AfterActivation(a mvc.AfterActivation) {
 	if a.Singleton() {
 		panic("basicController should be stateless, a request-scoped, we have a 'Session' which depends on the context.")
 	}
 }
+
 // Get : Get
 func (c *BasicController) Get() string {
 	count := c.Session.Increment("count", 1)
@@ -52,14 +58,17 @@ func (c *BasicController) Get() string {
 	c.Logger.Log(body)
 	return body
 }
+
 // Custom : Custom
 func (c *BasicController) Custom() string {
 	return "custom"
 }
+
 // BasicSubController : Basic Sub Controller
 type BasicSubController struct {
 	Session *sessions.Session
 }
+
 // Get : Get
 func (c *BasicSubController) Get() string {
 	count := c.Session.GetIntDefault("count", 1)

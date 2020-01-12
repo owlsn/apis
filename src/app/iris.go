@@ -13,8 +13,9 @@ import (
 	"github.com/kataras/iris/v12/mvc"
 	"github.com/sirupsen/logrus"
 
-	"github.com/owlsn/apis/src/utils/json"
+	"github.com/owlsn/apis/src/app/register"
 	"github.com/owlsn/apis/src/common/config"
+	"github.com/owlsn/apis/src/utils/json"
 	// "github.com/owlsn/apis/src/middleware"
 )
 
@@ -42,7 +43,13 @@ func InitIris() {
 	})
 
 	// api
-	mvc.Configure(app.Party("/api"), MVC)
+	mvc.Configure(app.Party("/api"), register.Basic)
+	// // user
+	// mvc.Configure(app.Party("/user"), User)
+	// // users
+	// mvc.Configure(app.Party("/users"), Users)
+	mvc.Configure(app.Party("/posts"), register.Posts)
+	mvc.Configure(app.Party("/auth"), register.Auth)
 
 	server := &http.Server{Addr: ":" + config.Conf.Port}
 	handleSignal(server)
@@ -72,7 +79,7 @@ func handleSignal(server *http.Server) {
 		s := <-c
 		logrus.Infof("got signal [%s], exiting now", s)
 		if err := server.Close(); nil != err {
-			logrus.Errorf("server close failed: " + err.Error())
+			logrus.Errorf("server close failed: ", err)
 		}
 
 		// simple.CloseDB()
