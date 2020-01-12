@@ -5,8 +5,6 @@ import (
 	"github.com/owlsn/apis/src/datamodels"
 )
 
-type QueryPost func(table string) bool
-
 type PostRepository interface {
 	GetAll(m map[string]string) (*datamodels.Post, error)
 }
